@@ -1,3 +1,5 @@
+# PLEASE SEE `MESSAGE.md`
+
 # Button Clicks
 
 This extension expands the behaviors supported by the A & B buttons.  It supports (mutually exclusive) detection of a single click of a button, a double click of a button, or holding a button down. 
