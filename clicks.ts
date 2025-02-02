@@ -26,7 +26,7 @@ let inLongClick =      [false, false]
 export enum AorBorAB { // Thanks Martin Williams / https://support.microbit.org/support/tickets/55867
     A = 0,
     B = 1,
-    AB = 3
+    AB = 2
 }
 
 // Array of handlers
