@@ -23,10 +23,10 @@ let lastClickEnd =     [0, 0]
 let lastPressedStart = [0, 0]
 let inLongClick =      [false, false]
 
-export enum AorBorAB { // Thanks Martin Williams / https://support.microbit.org/support/tickets/55867
+export enum AorBorA+B { // Thanks Martin Williams / https://support.microbit.org/support/tickets/55867
     A = 0,
     B = 1,
-    AB = 2
+    A+B = 2
 }
 
 // Array of handlers
@@ -36,7 +36,7 @@ let actions : [[Action]] = [
 ];
 
 // Button is AorB (0-based)
-function doActions(button: AorBorAB, kind: number) {
+function doActions(button: AorBorA+B, kind: number) {
     // Optional/Null chaining would be nice...
     let handlers = actions.get(button)
     if(handlers) {
@@ -112,21 +112,21 @@ control.onEvent(EventBusSource.MICROBIT_ID_BUTTON_B,
 
 //% blockId=onButtonSingleClicked block="on button |%NAME single clicked"
 //% weight=100 
-export function onButtonSingleClicked(button: AorBorAB, body: Action) {
+export function onButtonSingleClicked(button: AorBorA+B, body: Action) {
     let buttonHandlers = actions.get(button)
     buttonHandlers.set(SINGLECLICK, body)
 }
 
 //% blockId=onButtonDoubleClicked block="on button |%NAME double clicked "
 //% weight=75
-export function onButtonDoubleClicked(button: AorBorAB, body: Action) {
+export function onButtonDoubleClicked(button: AorBorA+B, body: Action) {
     let buttonHandlers = actions.get(button)
     buttonHandlers.set(DOUBLECLICK, body)
 }
 
 //% blockId=onButtonHeld block="on button |%NAME held"
 //% weight=50
-export function onButtonHeld(button: AorBorAB, body: Action) {
+export function onButtonHeld(button: AorBorA+B, body: Action) {
     let buttonHandlers = actions.get(button)
     buttonHandlers.set(LONGCLICK, body)
 }
@@ -135,7 +135,7 @@ export function onButtonHeld(button: AorBorAB, body: Action) {
 //% blockId=onButtonDown block="on button |%NAME down "
 //% weight=25 
 //% group="Advanced"
-export function onButtonDown(button: AorBorAB, body: Action) {
+export function onButtonDown(button: AorBorA+B, body: Action) {
     let buttonHandlers = actions.get(button)
     buttonHandlers.set(BUTTONDOWN, body)
 }
@@ -143,7 +143,7 @@ export function onButtonDown(button: AorBorAB, body: Action) {
 //% blockId=onButtonUp block="on button |%NAME up "
 //% weight=10 
 //% group="Advanced"
-export function onButtonUp(button: AorBorAB, body: Action) {
+export function onButtonUp(button: AorBorA+B, body: Action) {
     let buttonHandlers = actions.get(button)
     buttonHandlers.set(BUTTONUP, body)
 }
