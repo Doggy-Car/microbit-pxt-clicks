@@ -1,5 +1,3 @@
-
-
 //% color=#cf64ed
 //% icon="\uf0a7"
 //% block="Button clicks"
@@ -19,19 +17,22 @@ const shortClickTime =  500
 const doubleClickTime = 300      
 
 // Times for buttons
-let lastClickEnd =     [0, 0]
-let lastPressedStart = [0, 0]
-let inLongClick =      [false, false]
+let lastClickEnd =     [0, 0, 0]
+let lastPressedStart = [0, 0, 0]
+let inLongClick =      [false, false, false]
 
 export enum AorB { // Thanks Martin Williams / https://support.microbit.org/support/tickets/55867
     A = 0,
-    B = 1
+    B = 1,
+    //% block="A+B"
+    AB = 2
 }
 
 // Array of handlers
 let actions : [[Action]] = [ 
     [null, null, null, null, null],  // A Handlers
-    [null, null, null, null, null]   // B Handlers
+    [null, null, null, null, null],  // B Handlers
+    [null, null, null, null, null]   // AB Handlers
 ];
 
 // Button is AorB (0-based)
@@ -44,7 +45,7 @@ function doActions(button: AorB, kind: number) {
     }
 }
 
-function button(i: number) { // i is the Button Index (1,2)
+function button(i: number) { // i is the Button Index (1,2,3)
     let currentTime = control.millis()
     let pressed = input.buttonIsPressed(i)
     i--;  // Adjust to 0-based AorB and array index.
@@ -82,7 +83,7 @@ function button(i: number) { // i is the Button Index (1,2)
 loops.everyInterval(singleClickCheckTime, function() {
     let currentTime = control.millis()
     // i is index and AorB  (0-based)
-    for(let i=Button.A-1;i<=Button.B-1;i++) {
+    for(let i=Button.A-1;i<=Button.AB-1;i++) {
         if ((lastClickEnd[i] > 0) && (currentTime - lastClickEnd[i] > doubleClickTime)) {
             lastClickEnd[i] = 0
             doActions(i, SINGLECLICK)
@@ -108,6 +109,10 @@ control.onEvent(EventBusSource.MICROBIT_ID_BUTTON_B,
     EventBusValue.MICROBIT_BUTTON_EVT_DOWN, () => button(Button.B))
 control.onEvent(EventBusSource.MICROBIT_ID_BUTTON_B,
     EventBusValue.MICROBIT_BUTTON_EVT_UP, () => button(Button.B))
+control.onEvent(EventBusSource.MICROBIT_ID_BUTTON_AB,
+    EventBusValue.MICROBIT_BUTTON_EVT_DOWN, () => button(Button.AB))
+control.onEvent(EventBusSource.MICROBIT_ID_BUTTON_AB,
+    EventBusValue.MICROBIT_BUTTON_EVT_UP, () => button(Button.AB))
 
 //% blockId=onButtonSingleClicked block="on button |%NAME single clicked"
 //% weight=100 
